@@ -13,8 +13,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
         toDos.push(toDoText);
 
-        const toDosTemplate = toDos.map(t => `<liclass="list-group-item"> ${t} </liclass=>`);
+        const toDosTemplate = toDos.map((t, i) => `
+        <li class="list-group-item d-flex justify-content-between text-start d-block border my-1 mx-5">
+            ${t}
+            <i class="bi bi-x-circle text-end text-danger fs-5" style="cursor: pointer;" onclick="delTarea(${i})">
+            </i>
+        </li>
+        `);
         todoList.innerHTML = toDosTemplate.join('');
         todo.value = "";
     });
 });
+
+function delTarea(index) {
+    toDos.splice(index, 1);
+
+    const todoList = document.getElementById("toDo-list");
+    const toDosTemplate = toDos.map((t, i) => `
+        <li class="list-group-item d-flex justify-content-between text-start d-block border my-1 mx-5">
+            ${t}
+            <i class="bi bi-x-circle text-end text-danger fs-5" style="cursor: pointer;" onclick="delTarea(${i})">
+            </i>
+        </li>
+    `);
+    todoList.innerHTML = toDosTemplate.join('');
+}
